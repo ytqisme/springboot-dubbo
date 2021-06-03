@@ -9,7 +9,7 @@ server:
     max-threads: 200
 
 
-
+#dubbo配置
 dubbo:
   # Dubbo Protocol
   protocol:
