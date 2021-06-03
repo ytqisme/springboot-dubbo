@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: dubbo-registry-zookeeper-consumer-sample
+server:
+  port: 8081
+  tomcat:
+    accept-count: 100
+    max-connections: 8192
+    max-threads: 200
+
+
+
+dubbo:
+  # Dubbo Protocol
+  protocol:
+    name: dubbo
+   # Random port
+    port: -1
+    serialization: hessian2
+    accepts: 1000
+  registry:
+    address: zookeeper://127.0.0.1:2181
+    file: ${user.home}/dubbo-cache/${spring.application.name}/dubbo.cache
+  consumer:
+    check: false
+logging:
+  level:
+    root: info
