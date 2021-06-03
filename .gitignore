@@ -2,8 +2,8 @@
 ### Example user template
 
 # IntelliJ project files
-.settings
-.idea
+.settings/
+.idea/
 *.iml
 out
 gen
