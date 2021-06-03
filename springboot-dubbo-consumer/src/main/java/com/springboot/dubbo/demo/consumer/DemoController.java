@@ -1,6 +1,8 @@
 package com.springboot.dubbo.demo.consumer;
 
+import com.alibaba.fastjson.JSON;
 import com.springboot.dubbo.demo.api.DemoService;
+import com.springboot.dubbo.demo.api.OrmService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.Method;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DemoController {
 
-    @DubboReference(version = "1.0.0",group = "demo",protocol = "dubbo",timeout = 100,methods = {@Method(name = "hello",timeout = 300)})
+    @DubboReference(version = "1.0.0",group = "demo",protocol = "dubbo",timeout = 10000,methods = {@Method(name = "hello",timeout = 300)})
     private DemoService demoService;
+    @DubboReference(version = "1.0.0")
+    private OrmService ormService;
 
     public DemoController(){
         System.out.println("--DemoController--");
@@ -24,7 +28,13 @@ public class DemoController {
     }
     @GetMapping("/test1/{msg}")
     public String test1(@PathVariable("msg") String msg){
-        System.out.println("Consumer:"+msg);
+        System.out.println("Consumer1:"+msg);
         return demoService.test1(msg);
+    }
+
+    @GetMapping("/test2/{cardNo}")
+    public String test2(@PathVariable("cardNo") String cardNo){
+        System.out.println("Consumer2:"+cardNo);
+        return JSON.toJSONString(ormService.getAtmlog(cardNo));
     }
 }
